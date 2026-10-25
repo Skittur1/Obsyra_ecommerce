@@ -1,0 +1,304 @@
+<div class="checkout-page bg-surface-lowest">
+  <div class="checkout-page-content">
+    
+    <!-- Bug 2: Top Utility Row -->
+    <div class="top-utility-row">
+      <a routerLink="/cart" class="back-link label-md tracking-widest text-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+        RETURN TO SHOPPING BAG
+      </a>
+      <div class="encryption-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>256-BIT ENCRYPTED SANCTUM</span>
+      </div>
+    </div>
+
+    <!-- Bug 3: Page Header -->
+    <div class="page-header-row">
+      <div class="header-text-block">
+        <span class="label-md tracking-widest text-primary block mb-2">SALON PRIVÉ ALLOTMENT</span>
+        <h1 class="heading-xl text-primary mb-2">SECURE ALLOCATION CHECKOUT</h1>
+        <p class="body-sm text-muted">Bespoke fulfillment direct from the private Grasse laboratory &amp; cellar vault.</p>
+      </div>
+      <div class="header-tag-block">
+        <span class="batch-tag">BATCH REFERENCE: GRS-2025-087</span>
+      </div>
+    </div>
+
+    <!-- Bug 4: Static Stepper -->
+    <div class="stepper-row">
+      <div class="step active">
+        <span class="step-num">01</span>
+        <span class="step-label">Shipping Concierge</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-label">Payment Sanctuary</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-label">Review &amp; Seal</span>
+      </div>
+    </div>
+
+    <div class="checkout-grid">
+      <!-- Left Column: Forms -->
+      <div class="form-column">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-form">
+          
+          <!-- Bug 5: Shipping Card -->
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <h2 class="label-lg tracking-widest text-white uppercase">01. DISPATCH RECIPIENT &amp; SANCTUM ADDRESS</h2>
+              </div>
+              <span class="tag-pill text-white border-white/20">WHITE-GLOVE TIER</span>
+            </div>
+            
+            <div class="form-card-body">
+              <div class="form-group mb-6">
+                <label class="form-label">DIRECT ALLOCATION EMAIL *</label>
+                <input type="email" formControlName="email" class="form-control" placeholder="Email (for private cipher)">
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">FIRST NAME *</label>
+                  <input type="text" formControlName="firstName" class="form-control" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">LAST NAME *</label>
+                  <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
+              
+              <div class="form-group mb-4">
+                <label class="form-label">DELIVERY SANCTUARY (ADDRESS) *</label>
+                <input type="text" formControlName="address" class="form-control" placeholder="Address">
+              </div>
+              
+              <div class="form-group mb-4">
+                <label class="form-label">SUITE / WING (OPTIONAL)</label>
+                <input type="text" formControlName="apartment" class="form-control" placeholder="Apartment, suite, etc. (optional)">
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">CITY *</label>
+                  <input type="text" formControlName="city" class="form-control" placeholder="City">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">POSTAL CODE *</label>
+                  <input type="text" formControlName="postalCode" class="form-control" placeholder="Postal Code">
+                </div>
+              </div>
+              
+              <!-- Bug 5: Transit Escort Class -->
+              <div class="transit-subpanel">
+                <div class="transit-left">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                  <div>
+                    <h5 class="label-sm tracking-widest text-primary uppercase">WHITE-GLOVE ARMORED EXPRESS</h5>
+                    <p class="body-sm text-muted text-[11px] mt-1">Insured, climate-stabilized bespoke courier routing from Paris atelier.</p>
+                  </div>
+                </div>
+                <span class="tag-pill text-primary border-primary/30 text-[10px]">COMPLIMENTARY</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bug 5: Payment Card -->
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <h2 class="label-lg tracking-widest text-white uppercase">02. PAYMENT SANCTUARY &amp; VERIFICATION</h2>
+              </div>
+              <span class="tag-pill text-white border-white/20">PCI LEVEL 1 VAULT</span>
+            </div>
+            
+            <div class="form-card-body">
+              
+              <!-- Bug 6: Payment Tabs -->
+              <div class="payment-tabs">
+                <div class="pay-tab active">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                  CREDIT/DEBIT
+                </div>
+                <div class="pay-tab">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                  UPI/INSTANT
+                </div>
+                <div class="pay-tab">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                  BANK WIRE
+                </div>
+                <div class="pay-tab">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 4.2c.11.08.18.21.18.35v6.52c0 2.22-1.54 4.25-3.66 4.96L12 19.8l-2.18-1.08A5.3 5.3 0 0 1 6.16 13.75V7.24c0-.14.07-.27.18-.35L12 2.69z"></path></svg>
+                  APPLE PAY
+                </div>
+              </div>
+
+              <!-- Form Fields -->
+              <div class="payment-box">
+                <div class="form-group mb-4">
+                  <label class="form-label">CARD NUMBER *</label>
+                  <div class="input-with-icon">
+                    <input type="text" formControlName="cardNumber" class="form-control" placeholder="16-digit card number">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                  </div>
+                </div>
+                
+                <!-- Bug 6: Cardholder Name -->
+                <div class="form-group mb-4">
+                  <label class="form-label">CARDHOLDER NAME *</label>
+                  <input type="text" formControlName="cardName" class="form-control" placeholder="Name strictly as it appears on card">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">EXPIRY DATE *</label>
+                    <input type="text" formControlName="expiry" class="form-control" placeholder="MM / YY">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">SECURITY CODE (CVC) *</label>
+                    <input type="password" formControlName="cvc" class="form-control" placeholder="3 or 4 digits">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bug 6: Confirmation note -->
+              <p class="body-sm text-muted italic mt-6">Card will be debited upon immediate allocation verification in Grasse.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column: Order Summary -->
+      <div class="summary-column relative">
+        <div class="summary-card sticky top-8">
+          
+          <!-- Bug 8: Order summary title -->
+          <div class="summary-header">
+            <div>
+              <span class="label-sm tracking-widest text-muted block mb-1">ALLOTMENT SUMMARY</span>
+              <h3 class="label-lg text-white uppercase">CONSIGNMENT DOSSIER ({{ cartService.totalItems() }})</h3>
+            </div>
+            <span class="tag-pill border-primary text-primary">RESERVED</span>
+          </div>
+
+          <!-- Bug 7: Thumbnails and rows -->
+          <div class="summary-items-list space-y-6 mb-8">
+            @for (item of cartService.cartItems(); track item.product.id) {
+              <div class="summary-item-row">
+                <div class="item-thumb-box relative">
+                  <img [src]="item.product.imageUrl" [alt]="item.product.name" class="w-full h-full object-cover">
+                  <span class="qty-badge">{{ item.quantity }}</span>
+                </div>
+                <div class="item-meta">
+                  <h4 class="label-md text-white mb-1">OBSYRA &middot; {{ item.product.name }}</h4>
+                  <p class="body-sm text-muted text-[11px] mb-1">100ML PURE EXTRAIT DE PARFUM</p>
+                  <p class="body-sm text-muted text-[10px]">&x270E; Engraved Monogram: 'J&middot;C'</p>
+                </div>
+                <div class="item-price-meta text-right">
+                  <span class="label-md text-primary block mb-1">{{ (item.product.price * item.quantity) | currency:'INR' }}</span>
+                  @if(item.product.isNew) {
+                    <span class="text-[9px] text-primary tracking-widest uppercase">COMPLIMENTARY</span>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Bug 9: Atelier Inclusion gift row -->
+            <div class="inclusion-gift-row">
+              <div class="flex items-center gap-4">
+                <div class="gift-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+                </div>
+                <div>
+                  <h5 class="label-sm text-white uppercase">ATELIER INCLUSION INCLUDED</h5>
+                  <p class="body-sm text-muted text-[11px] mt-0.5">2ml Discovery Flacon &middot; Santal Imp&eacute;rial</p>
+                </div>
+              </div>
+              <span class="tag-pill border-white/20 text-white text-[10px]">GRATIS</span>
+            </div>
+          </div>
+
+          <!-- Bug 10: Price Breakdown -->
+          <div class="pricing-breakdown space-y-3 mb-6 pt-6 border-t border-white/10">
+            <div class="flex justify-between items-center">
+              <span class="body-sm text-muted">Bottled Allocation Value</span>
+              <span class="body-sm text-white">{{ cartService.subtotal() | currency:'INR' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="body-sm text-muted flex items-center gap-1">Bespoke Brass Flacon Chiseled Monogram <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+              <span class="label-sm tracking-widest text-primary text-[10px]">COMPLIMENTARY</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="body-sm text-muted">Insured Climate-Chamber Transit (Grasse &rarr; Paris)</span>
+              <span class="label-sm tracking-widest text-primary text-[10px]">COMPLIMENTARY</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="body-sm text-muted">Customs &amp; Certified Terroir Tax</span>
+              <span class="label-sm tracking-widest text-white text-[10px]">INCLUDED</span>
+            </div>
+          </div>
+
+          <!-- Bug 11: Total row -->
+          <div class="grand-total-row border-t border-primary/30 pt-6 pb-6 mb-6">
+            <div>
+              <h4 class="label-lg tracking-widest text-white mb-1 uppercase">TOTAL DUE</h4>
+              <span class="label-sm text-primary tracking-widest block text-[9px] mb-1">NET FINAL DISBURSEMENT</span>
+              <p class="body-sm text-muted text-[10px]">All Applicable Duties Surcharged</p>
+            </div>
+            <span class="heading-xl text-primary">{{ cartService.subtotal() | currency:'INR' }}</span>
+          </div>
+
+          <!-- Bug 13: CTA button -->
+          <button type="button" class="btn btn-primary btn-block uppercase tracking-widest py-4 flex items-center justify-center gap-3 w-full" [disabled]="isProcessing || cartService.cartItems().length === 0" (click)="onSubmit()">
+            @if (isProcessing) {
+              <div class="spinner-small"></div>
+            } @else {
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              PAY &amp; PLACE ORDER &middot; {{ cartService.subtotal() | currency:'INR' }}
+            }
+          </button>
+
+          <!-- Bug 12: Trust Badges Row -->
+          <div class="mt-6 text-center">
+            <p class="label-sm text-muted tracking-widest text-[9px] mb-4 uppercase">DISPATCHED WITH NUMBERED BEESWAX PARCHMENT WAX SEAL</p>
+            <div class="trust-badge-row flex justify-center gap-4 text-muted border border-white/10 p-3 rounded bg-surface/50">
+              <div class="flex flex-col items-center gap-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <span class="text-[8px] uppercase tracking-widest text-center leading-tight">100% INSURED<br>TRANSIT</span>
+              </div>
+              <div class="w-px h-8 bg-white/10"></div>
+              <div class="flex flex-col items-center gap-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 12v10"></path></svg>
+                <span class="text-[8px] uppercase tracking-widest text-center leading-tight">GRASSE<br>HAND-SEALED</span>
+              </div>
+              <div class="w-px h-8 bg-white/10"></div>
+              <div class="flex flex-col items-center gap-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span class="text-[8px] uppercase tracking-widest text-center leading-tight">256-BIT SSL<br>VAULT</span>
+              </div>
+            </div>
+            
+            <div class="concierge-online flex items-center justify-between p-3 border border-white/10 rounded mt-4 bg-surface-low">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <span class="body-sm text-white text-[11px]">Concierge Master at Grasse is Online</span>
+              </div>
+              <a href="#" class="label-sm text-primary tracking-widest border-b border-primary/30 hover:border-primary transition-colors">INQUIRE</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,270 @@
+<div class="product-detail-page bg-surface-lowest">
+  @if (isLoading()) {
+    <div class="pdp-container text-center py-24">
+      <div class="spinner-small" style="margin: 0 auto; border-top-color: var(--color-primary)"></div>
+    </div>
+  } @else if (product()) {
+    <div class="pdp-container">
+      
+      <!-- Bug 1: Breadcrumbs -->
+      <nav class="pdp-breadcrumbs">
+        <a routerLink="/" class="crumb-link">HOME</a>
+        <span class="crumb-sep">/</span>
+        <a routerLink="/products" class="crumb-link">COLLECTIONS</a>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-current">{{ product()?.name | uppercase }}</span>
+      </nav>
+
+      <div class="pdp-grid">
+        
+        <!-- Left Column: Gallery -->
+        <div class="pdp-gallery-col">
+          <div class="pdp-main-image-card relative overflow-hidden">
+            <!-- Bug 2: No stray text because missing images will fallback -->
+            <!-- Bug 8: Expand Icon -->
+            <button class="expand-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </button>
+            
+            @if (product()?.isNew) {
+              <span class="pdp-edition-badge">Edition 01</span>
+            }
+            
+            <img [src]="product()?.imageUrl" [alt]="product()?.name" class="pdp-main-img" onerror="this.src='https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80'">
+          </div>
+          
+          <!-- Bug 8: Caption Bar -->
+          <div class="pdp-caption-bar mt-4">
+            <div class="caption-left">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span class="caption-primary">SINGLE-ESTATE HARVEST &middot; GRASSE TERROIR</span>
+            </div>
+            <div class="caption-right">
+              <span class="caption-secondary">Batch No. NR-0941 &middot; Bottled at 20&deg;C strictly in inert argon</span>
+              <span class="caption-lot text-primary">LOT 14/250</span>
+            </div>
+          </div>
+          
+          <!-- Thumbnails -->
+          <div class="pdp-thumbnail-row mt-6">
+            <button class="thumb-btn active"><img [src]="product()?.imageUrl" [alt]="product()?.name"></button>
+            <button class="thumb-btn opacity-50 hover:opacity-100"><img [src]="product()?.imageUrl" [alt]="product()?.name"></button>
+            <button class="thumb-btn opacity-50 hover:opacity-100"><img [src]="product()?.imageUrl" [alt]="product()?.name"></button>
+          </div>
+        </div>
+
+        <!-- Right Column: Details -->
+        <div class="pdp-info-col">
+          <span class="pdp-category block mb-2">{{ product()?.category | uppercase }}</span>
+          <h1 class="pdp-title mb-4">{{ product()?.name }}</h1>
+          
+          <!-- Bug 12: Star rating inline -->
+          <div class="pdp-rating-row mb-6">
+            <div class="stars text-primary">&starf;&starf;&starf;&starf;&starf;</div>
+            <span class="rating-text text-muted">{{ product()?.rating }} / 5 &middot; {{ product()?.reviewsCount }} VERIFIED OLFACTORY REVIEWS</span>
+          </div>
+
+          <p class="pdp-desc text-muted mb-8">
+            {{ product()?.description }}. Formulated in Grasse from rare vintage botanicals. 
+            An unforgettable olfactory signature designed for nocturnal elegance.
+          </p>
+
+          <!-- Bug 5: Price Block -->
+          <div class="pdp-price-block mb-8 pb-8 border-b border-white/10">
+            <span class="label-sm text-muted block mb-1">ALLOTMENT PRICE</span>
+            <div class="flex items-end gap-4 flex-wrap">
+              <span class="heading-xl text-primary">{{ product()?.price | currency:'INR' }}</span>
+              @if (product()?.originalPrice) {
+                <span class="body-lg text-muted line-through mb-1">{{ product()?.originalPrice | currency:'INR' }}</span>
+                <span class="discount-badge text-primary mb-1 border border-primary/20 bg-primary/10">{{ getDiscountPercent(product()!.price, product()!.originalPrice!) }}% PRIVILEGED ALLOCATION</span>
+              }
+            </div>
+          </div>
+
+          <!-- Bug 6: Flacon volume selector -->
+          <div class="volume-section mb-8">
+            <div class="flex justify-between items-end mb-3">
+              <span class="label-sm text-on-surface">FLACON VOLUME</span>
+              <a href="#" class="matrix-link text-primary label-sm">SIZE &amp; SILLAGE MATRIX</a>
+            </div>
+            <div class="volume-grid">
+              <button class="vol-card" [class.active]="selectedVolume() === '100ml'" (click)="selectedVolume.set('100ml')">
+                <div class="flex justify-between mb-1">
+                  <span class="vol-size">100 ML</span>
+                  <span class="vol-price text-primary">{{ product()?.price | currency:'INR' }}</span>
+                </div>
+                <span class="vol-desc text-muted">Salon Edition &middot; Preferred</span>
+              </button>
+              <button class="vol-card" [class.active]="selectedVolume() === '50ml'" (click)="selectedVolume.set('50ml')">
+                <div class="flex justify-between mb-1">
+                  <span class="vol-size">50 ML</span>
+                  <span class="vol-price text-muted">{{ (product()!.price * 0.65) | currency:'INR' }}</span>
+                </div>
+                <span class="vol-desc text-muted">Compact Obsidian Flacon</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bug 7: Bespoke Engraving Section -->
+          <div class="engraving-section mb-10 p-5 bg-surface-low border border-white/10 rounded-lg">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <h4 class="label-md text-white">BESPOKE FLACON ENGRAVING</h4>
+                <p class="body-sm text-muted text-[11px] mt-1">Initials chiseled into the brass cap by our Parisian artisan.</p>
+              </div>
+              <span class="tag-pill text-primary border-primary/20 text-[9px]">COMPLIMENTARY</span>
+            </div>
+            <div class="engraving-input-row flex gap-3">
+              <input type="text" class="engrave-input flex-1" placeholder="Enter up to 3 initials (e.g. J.C)" maxlength="3" [value]="engravingText()" (input)="engravingText.set($any($event.target).value)">
+              <div class="engrave-preview w-16 flex items-center justify-center border border-white/20 bg-surface rounded text-primary font-serif italic text-lg">
+                {{ engravingText() || 'J.C' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Purchase Controls -->
+          <div class="purchase-row flex items-center gap-4 mb-8">
+            <!-- Bug 3: Quantity stepper inline row -->
+            <div class="qty-stepper">
+              <button class="qty-btn" (click)="decrement()">-</button>
+              <span class="qty-val">{{ quantity() }}</span>
+              <button class="qty-btn" (click)="increment()">+</button>
+            </div>
+
+            <button class="btn btn-primary flex-1 py-4 flex items-center justify-center gap-2 tracking-widest text-sm" 
+                    (click)="addToCart()" 
+                    [disabled]="!product()?.inStock">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              {{ product()?.inStock ? 'ADD TO BAG' : 'OUT OF STOCK' }}
+            </button>
+          </div>
+
+          <!-- Bug 9: 3-icon Trust Row -->
+          <div class="trust-icons-grid grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+            <div class="trust-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary mb-2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              <h5 class="label-sm text-white mb-1">WHITE-GLOVE TRANSIT</h5>
+              <p class="text-muted text-[10px] leading-snug">Climate-controlled bespoke courier.</p>
+            </div>
+            <div class="trust-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary mb-2"><path d="M12 2v20"></path><path d="M5 2h14"></path><path d="M5 22h14"></path><path d="M5 2l7 10-7 10"></path><path d="M19 2l-7 10 7 10"></path></svg>
+              <h5 class="label-sm text-white mb-1">2ML DISCOVERY VIAL</h5>
+              <p class="text-muted text-[10px] leading-snug">Included complimentary for sampling.</p>
+            </div>
+            <div class="trust-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-primary mb-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+              <h5 class="label-sm text-white mb-1">AUTHENTIC GRASSE</h5>
+              <p class="text-muted text-[10px] leading-snug">Certified terroir distillation.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <!-- Bug 10: Olfactory Pyramid Tabbed Section -->
+      <div class="pyramid-full-section mt-24">
+        <div class="tab-header-row flex justify-center gap-8 border-b border-white/10 mb-12">
+          <button class="tab-btn" [class.active]="activeTab() === 'pyramid'" (click)="setActiveTab('pyramid')">1. OLFACTORY PYRAMID</button>
+          <button class="tab-btn" [class.active]="activeTab() === 'sillage'" (click)="setActiveTab('sillage')">2. SILLAGE &amp; PERFORMANCE</button>
+          <button class="tab-btn" [class.active]="activeTab() === 'provenance'" (click)="setActiveTab('provenance')">3. ATELIER PROVENANCE</button>
+        </div>
+        
+        <div class="tab-content" [hidden]="activeTab() !== 'pyramid'">
+          <div class="pyramid-grid flex flex-col md:flex-row items-center gap-16 max-w-5xl mx-auto">
+            <!-- Triangle Diagram -->
+            <div class="pyramid-diagram flex-1 relative flex flex-col items-center justify-center">
+              <div class="triangle-wrapper w-full max-w-[320px] aspect-square relative">
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-2xl">
+                  <!-- Base -->
+                  <polygon points="50,10 95,90 5,90" fill="transparent" stroke="var(--color-primary)" stroke-width="1" stroke-opacity="0.3"></polygon>
+                  <!-- Top -->
+                  <polygon points="50,10 65,36 35,36" fill="rgba(212,175,55,0.2)"></polygon>
+                  <!-- Heart -->
+                  <polygon points="35,36 65,36 80,63 20,63" fill="rgba(212,175,55,0.1)"></polygon>
+                  <!-- Base -->
+                  <polygon points="20,63 80,63 95,90 5,90" fill="rgba(212,175,55,0.05)"></polygon>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-between py-12 px-8">
+                  <div class="text-center mt-2"><span class="label-sm text-white tracking-widest text-[9px] block">0&ndash;30 MIN</span></div>
+                  <div class="text-center mt-6"><span class="label-sm text-white tracking-widest text-[9px] block">1&ndash;4 HRS</span></div>
+                  <div class="text-center mt-6"><span class="label-sm text-white tracking-widest text-[9px] block">5&ndash;14+ HRS</span></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Note Cards -->
+            <div class="pyramid-cards flex-1 space-y-6">
+              <div class="note-card p-6 border border-white/10 bg-surface-low rounded-lg">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="label-md text-primary tracking-widest">HEAD / TOP NOTES</h4>
+                  <span class="text-muted font-mono text-[10px]">0 &mdash; 30 MIN</span>
+                </div>
+                <p class="body-sm text-white mb-2 font-bold">Bergamot Extract, Pink Peppercorn</p>
+                <p class="body-sm text-muted text-[13px] leading-relaxed">The initial explosive sillage. Crisp citrus and sharp spice awaken the senses immediately upon atmospheric contact.</p>
+              </div>
+              <div class="note-card p-6 border border-white/10 bg-surface-low rounded-lg">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="label-md text-primary tracking-widest">HEART / MIDDLE NOTES</h4>
+                  <span class="text-muted font-mono text-[10px]">1 &mdash; 4 HRS</span>
+                </div>
+                <p class="body-sm text-white mb-2 font-bold">Damask Rose, Midnight Iris</p>
+                <p class="body-sm text-muted text-[13px] leading-relaxed">The true character emerges as the volatile head notes flash off. Floral absolutes bloom with deep resinous depth.</p>
+              </div>
+              <div class="note-card p-6 border border-white/10 bg-surface-low rounded-lg">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="label-md text-primary tracking-widest">DRYDOWN / BASE NOTES</h4>
+                  <span class="text-muted font-mono text-[10px]">5 &mdash; 14+ HRS</span>
+                </div>
+                <p class="body-sm text-white mb-2 font-bold">Smoked Oud, Ambergris, Bourbon Vanilla</p>
+                <p class="body-sm text-muted text-[13px] leading-relaxed">The enduring skin-scent signature. Rich, heavy molecules that bind to the skin, lingering late into the night.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static placeholders for other tabs (Bug 10 flag) -->
+        <div class="tab-content" [hidden]="activeTab() !== 'sillage'">
+          <div class="max-w-3xl mx-auto text-center py-12">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-primary mx-auto mb-4 opacity-50"><path d="M12 2v20"></path><path d="M5 2h14"></path><path d="M5 22h14"></path><path d="M5 2l7 10-7 10"></path><path d="M19 2l-7 10 7 10"></path></svg>
+            <h3 class="heading-md text-white mb-2">Performance Metrics Unavailable</h3>
+            <p class="body-sm text-muted">Sillage and performance matrix data is currently unmapped for this specific allotment.</p>
+          </div>
+        </div>
+        
+        <div class="tab-content" [hidden]="activeTab() !== 'provenance'">
+          <div class="max-w-3xl mx-auto text-center py-12">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-primary mx-auto mb-4 opacity-50"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon></svg>
+            <h3 class="heading-md text-white mb-2">Terroir Dossier Unavailable</h3>
+            <p class="body-sm text-muted">Provenance logs for this harvest are locked in the master registry.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bug 11: Cross-sell Section -->
+      <div class="cross-sell-section mt-32 pt-24 border-t border-white/10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <span class="label-sm tracking-widest text-primary block mb-3">HARMONIOUS LAYERING</span>
+            <h2 class="heading-lg text-white uppercase">Complete The Olfactory Ritual</h2>
+          </div>
+          <p class="body-md text-muted italic md:max-w-md md:text-right">Complement your primary aura with our recommended ambient enhancements and travel atomizers.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          @for (prod of crossSellProducts(); track prod.id) {
+            <app-product-card [product]="prod"></app-product-card>
+          }
+        </div>
+      </div>
+
+    </div>
+  } @else {
+    <div class="pdp-container text-center py-24">
+      <h2 class="heading-lg mb-4">Product Not Found</h2>
+      <a routerLink="/products" class="btn btn-primary">RETURN TO COLLECTIONS</a>
+    </div>
+  }
+</div>
+
+<!-- Footer/Feature Strip -->
+<app-feature-strip></app-feature-strip>

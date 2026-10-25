@@ -1,0 +1,60 @@
+<div class="collections-page">
+  <div class="collection-hero section">
+    <div class="container text-center">
+      <h1 class="heading-xl">La Collection</h1>
+      <p class="body-lg collection-desc">Explore our complete portfolio of artisanal fragrances. Each creation is a study in rare ingredients and masterful composition.</p>
+    </div>
+  </div>
+
+  <div class="container pb-xl">
+    <div class="collection-layout">
+      <!-- Sidebar Filters -->
+      <aside class="filters-sidebar">
+        <h3 class="heading-sm filter-title">Refine By</h3>
+        
+        <div class="filter-group">
+          <h4 class="label-lg">Olfactory Family</h4>
+          <label class="filter-option body-sm"><input type="checkbox"> Woody & Oriental</label>
+          <label class="filter-option body-sm"><input type="checkbox"> Rich Amber</label>
+          <label class="filter-option body-sm"><input type="checkbox"> Nocturnal Floral</label>
+        </div>
+        
+        <div class="filter-group">
+          <h4 class="label-lg">Collection</h4>
+          <label class="filter-option body-sm"><input type="checkbox"> Haute Parfumerie</label>
+          <label class="filter-option body-sm"><input type="checkbox"> Les Extraits</label>
+        </div>
+      </aside>
+
+      <!-- Main Grid -->
+      <div class="main-content">
+        <div class="grid-header">
+          <span class="body-md">{{ products().length }} Creations</span>
+          <select class="sort-select body-md">
+            <option>Sort by: Recommended</option>
+            <option>Price: High to Low</option>
+            <option>Price: Low to High</option>
+          </select>
+        </div>
+
+        @if (isLoading()) {
+          <div class="product-grid">
+            @for (i of [1,2,3,4,5,6]; track i) {
+              <div class="skeleton-card card-glass">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text short"></div>
+                <div class="skeleton-text long"></div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="product-grid">
+            @for (product of products(); track $index) {
+              <app-product-card [product]="product"></app-product-card>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

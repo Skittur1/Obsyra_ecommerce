@@ -1,0 +1,99 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+/* The Gold Ingot */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface-dim);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-container);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(212, 175, 55, 0.1);
+}
+
+/* Obsidian Glass */
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--color-primary-container);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  backdrop-filter: blur(8px);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(212, 175, 55, 0.08);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.02);
+}
+
+/* Typographic Link */
+.btn-link {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 0;
+  position: relative;
+}
+
+.btn-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background-color: var(--color-primary);
+  transition: width var(--transition-fast);
+}
+
+.btn-link:hover::after {
+  width: 100%;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-on-surface);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-icon:hover {
+  color: var(--color-primary);
+  background-color: rgba(212, 175, 55, 0.08);
+}

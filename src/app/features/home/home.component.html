@@ -1,0 +1,191 @@
+<!-- Section 3: Hero Section -->
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <span class="label-md hero-eyebrow" appScrollReveal [staggerIndex]="1">— LUXURY IN EVERY BREATH</span>
+      <h1 class="hero-title" appScrollReveal [staggerIndex]="2">
+        <span class="line-1">DISCOVER</span><br>
+        <span class="line-2">THE ART</span><br>
+        <span class="line-3">OF FRAGRANCE</span>
+      </h1>
+      <p class="body-lg hero-desc" appScrollReveal [staggerIndex]="3">
+        OBSYRA is formulated in Grasse ateliers from rare vintage botanicals and cold-pressed absolutes. 
+        Experience the pinnacle of nocturnal minimalism.
+      </p>
+      
+      <div class="hero-buttons" appScrollReveal [staggerIndex]="4">
+        <a routerLink="/products" class="btn btn-primary">EXPLORE COLLECTION &rarr;</a>
+        <a routerLink="/scent-finder" class="btn btn-secondary">&diams; DISCOVER YOUR SCENT</a>
+      </div>
+      
+      <div class="hero-stats" appScrollReveal [staggerIndex]="5">
+        <div class="stat-block">
+          <span class="stat-value">{{ statConcentration() }}%</span>
+          <span class="stat-label">PURE EXTRAIT</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-value">{{ statSillage() }} HRS</span>
+          <span class="stat-label">SILLAGE ARCH</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-value">{{ statHarvest() }} pcs</span>
+          <span class="stat-label">PER HARVEST</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-image-column">
+      <div class="hero-product-card hero-image-scale-in">
+        <div class="edition-chip label-md">&bull; EDITION 01</div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBViT3cmzaL27d978RLhWLZfRAFrqT68rHHYNtXCL6AE-kj4uBngWivFvD2fE321jEzBzMxK1XNdnB-StxTqp6NvDnwyPxakSTvl3S6Vy3ccfZkE_9v90apvIxNef_BCejV7I9H9EjiSSQi4RfmOXh45J8K8w_N9KqBWRCSxmpji8wiSoFmVHWsSnj0i4nZx0zbHK2lkaVMFZh9KL_KJn8KhW4kcnstmgVMihvsn5LvhBDcnNCm0X0_ww" alt="Bleu Nocturne Extrait" class="hero-product-img">
+        <div class="hero-product-overlay">
+          <div class="overlay-text">
+            <span class="label-sm gold-text">FLAGSHIP FORMULATION</span>
+            <h3 class="heading-sm text-white">Bleu Nocturne Extrait</h3>
+          </div>
+          <span class="hero-price">&euro;2,599</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Trust Badges Strip -->
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item hover-lift" appScrollReveal [staggerIndex]="1">
+      <div class="trust-icon">✦</div>
+      <h4 class="label-lg">Premium Quality</h4>
+      <p class="body-sm text-muted">Only the rarest Grasse harvest botanicals.</p>
+    </div>
+    <div class="trust-item hover-lift" appScrollReveal [staggerIndex]="2">
+      <div class="trust-icon">💧</div>
+      <h4 class="label-lg">Extrait Formulation</h4>
+      <p class="body-sm text-muted">32%+ perfume oil concentration.</p>
+    </div>
+    <div class="trust-item hover-lift" appScrollReveal [staggerIndex]="3">
+      <div class="trust-icon">📦</div>
+      <h4 class="label-lg">White-Glove Transit</h4>
+      <p class="body-sm text-muted">Climate-regulated secured transit.</p>
+    </div>
+    <div class="trust-item hover-lift" appScrollReveal [staggerIndex]="4">
+      <div class="trust-icon">🔒</div>
+      <h4 class="label-lg">Secure Vault</h4>
+      <p class="body-sm text-muted">256-bit encrypted checkout access.</p>
+    </div>
+    <div class="trust-item hover-lift" appScrollReveal [staggerIndex]="5">
+      <div class="trust-icon">📜</div>
+      <h4 class="label-lg">Authentic Provenance</h4>
+      <p class="body-sm text-muted">Hand-wax-sealed certificate in box.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Product Collection Grid -->
+<section class="section collection-section">
+  <div class="container">
+    <div class="section-header-row" appScrollReveal>
+      <div class="header-left">
+        <span class="label-md gold-text">OUR SIGNATURE HAUTE COLLECTION</span>
+        <h2 class="heading-lg">ICONIC NOCTURNE EXTRAITS</h2>
+        <p class="body-md text-muted">Discover the signature olfactive signatures of the Maison.</p>
+      </div>
+      <div class="header-right">
+        <a routerLink="/products" class="btn-link label-lg">VIEW ALL FRAGRANCES &rarr;</a>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="product-grid">
+        @for (i of [1,2,3,4]; track i) {
+          <div class="skeleton-card card-glass">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text short"></div>
+            <div class="skeleton-text long"></div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="product-grid">
+        @for (product of products(); track product.id; let i = $index) {
+          <!-- Cap stagger at 3 for rows -->
+          <app-product-card [product]="product" appScrollReveal [staggerIndex]="i % 3 + 1"></app-product-card>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Section 6: Brand Story Section -->
+<section class="section story-section">
+  <div class="container story-grid">
+    <div class="story-content" appScrollReveal>
+      <span class="label-md gold-text">&mdash; THE OBSYRA LEGACY</span>
+      <h2 class="heading-xl story-title">
+        <span class="text-white">CRAFTED FOR THE</span><br>
+        <span class="text-gold italic">EXTRAORDINARY</span>
+      </h2>
+      <p class="body-md text-muted mb-4">
+        Our proprietary Grasse maceration protocols redefine haute parfumerie. We age our rare botanical extracts in climate-controlled obsidian vaults, ensuring deep, velvety molecular saturation before hand-blending.
+      </p>
+      <p class="body-md text-muted mb-6">
+        Combining ancestral savoir-faire with avant-garde extraction technology, OBSYRA captures the most delicate and elusive scent profiles on earth.
+      </p>
+      
+      <div class="feature-mini-cards">
+        <div class="mini-card card-glass hover-lift">
+          <div class="mini-icon">❄️</div>
+          <h4 class="label-md text-white">COLD ULTRASONIC EXTRACTION</h4>
+          <p class="body-sm text-muted">Preserving heat-sensitive floral nuances.</p>
+        </div>
+        <div class="mini-card card-glass hover-lift">
+          <div class="mini-icon">⏳</div>
+          <h4 class="label-md text-white">180-DAY MACERATION</h4>
+          <p class="body-sm text-muted">Developing deep, velvety molecular saturation.</p>
+        </div>
+      </div>
+      
+      <a routerLink="/about" class="btn-link label-lg mt-6 inline-block">READ THE FULL GRASSE CHRONICLE &rarr;</a>
+    </div>
+    
+    <div class="story-collage" appScrollReveal [staggerIndex]="2">
+      <div class="collage-main">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHfg0ZVnNm6osox5ljLgvQ8qRA11mXN66kdw0hiIFENtY8AF06dkStRqzqOpq0lZzoHC3uJW3gWA_MaCyhtvipqa0uXBebiCpKQj-S6Ik0QozH1mKFa25jk3FKtfTcNjKFeFzpyPx7Ww84MDJu8HVilYdyVx9ftWSLuEr7iZ57l5IZ51znH7Ij5jZG4tshEk3W1gjCvOw5WN3abzKwRx6xa47gvdSD5RqcU_07lGHpAGsmK5J3mjgdNQ" alt="Artisan" class="collage-img">
+        <div class="collage-chip card-glass">
+          <span class="label-sm gold-text block">GRASSE CERTIFIED TERROIR</span>
+          <span class="body-sm text-white block mt-1">Batch No. OB-2025-V7</span>
+        </div>
+      </div>
+      <div class="collage-side">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqwVHcVCcZO_q__iA40sU49YN8ykRxPC7nC1bQdhpoWZD3byprNcnEm8nAv8wdlI_fjaDbOJa3vU8IdlrjxaWTx8NGRAyXHBXPQcg3qHgBnKTE_bM7fxyRMEkjspcdbdqDMg6JHuRzIe7FISmjq3W5zAjHlJPqtEz-h_LmnFo0gn61bl1SEEWIwGu1xqp7k8mrucs-fpTGitFskwxN0tOpXGkhx8erZT0RtXyouqFUAN2XnlV6Bp90eQ" alt="Bottles" class="collage-img side-img-1">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdlQZxjuWGNGBnBHTVxGuQusrpun8841avT2pcjbACZiUg_zy7a1N4aOLsxvqom12XpVPfvFQz7LNFFSXu2r-iPjS-nEcmdkWmEmMaHTgqQpJMOawoQ3ZOPcHNduWm5KqcaOaa62GhcjpgXxWdTBpUa6slJKqsU9oHg87xoD8C3aqxP9MUzzf3O7ZWFsk2QGDZ55bV2H6pFSBpW3Al6betF2t0x4BgQ0_5U6u4XsxIGpkEbHoZnvi5oQ" alt="Liquid" class="collage-img side-img-2">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 7: CTA Banner -->
+<section class="section">
+  <div class="container" appScrollReveal>
+    <div class="cta-banner card-glass">
+      <div class="cta-content">
+        <span class="label-md gold-text mb-2 block">✦ AURA CONSULTATION ENGINE</span>
+        <h2 class="heading-lg text-white mb-2">FIND YOUR SIGNATURE AURA</h2>
+        <p class="body-md text-muted mb-6">
+          Take our exclusive 4-question olfactory assessment, curated by the Grasse council, to discover the extrait perfectly aligned with your personal chemistry.
+        </p>
+        <div class="cta-meta">
+          <span class="label-sm text-muted">⏳ 3 MINUTES</span>
+          <span class="label-sm text-muted">🎯 96.4% MATCH RATE</span>
+          <span class="label-sm text-muted">🎁 FREE 2ML SAMPLE MATCH</span>
+        </div>
+      </div>
+      <div class="cta-action">
+        <a routerLink="/scent-finder" class="btn btn-primary">START SCENT QUIZ &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 8: Bottom Feature Strip -->
+<app-feature-strip appScrollReveal></app-feature-strip>

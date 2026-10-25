@@ -1,0 +1,28 @@
+.card-glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+/* Mimic 1px gradient border */
+.card-glass::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.35) 0%, rgba(255, 255, 255, 0.04) 100%);
+}
+
+.card-glass:hover {
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.08);
+}
+
+.card-glass:hover::before {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.6) 0%, rgba(212, 175, 55, 0.1) 100%);
+}

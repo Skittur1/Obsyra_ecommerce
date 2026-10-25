@@ -1,0 +1,45 @@
+<a [routerLink]="['/products', product.id]" class="product-card card-glass">
+  <div class="card-header">
+    <span class="category-tag label-md">{{ product.category }}</span>
+    <button class="wishlist-btn" aria-label="Toggle wishlist" (click)="toggleWishlist($event)" [@popAnimation]="wishlistAnimState()">
+      <svg width="18" height="18" viewBox="0 0 24 24" [attr.fill]="isWishlisted() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+  </div>
+  
+  <div class="image-wrapper">
+    <img [src]="product.imageUrl" [alt]="product.name" class="product-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80'">
+  </div>
+  
+  <div class="product-info">
+    <h3 class="name heading-sm">{{ product.name }}</h3>
+    <p class="subtitle body-md">{{ product.description | slice:0:30 }}&hellip;</p>
+    <p class="volume-meta label-sm">100ML EXTRAIT DE PARFUM</p>
+    
+    <div class="rating-row">
+      <div class="stars">
+        <span class="star gold-text">&starf;</span>
+        <span class="star gold-text">&starf;</span>
+        <span class="star gold-text">&starf;</span>
+        <span class="star gold-text">&starf;</span>
+        <span class="star gold-text">&starf;</span>
+      </div>
+      <span class="rating-text body-sm">{{ product.rating }} ({{ product.reviewsCount }})</span>
+    </div>
+    
+    <div class="price-action">
+      <div class="price-stack">
+        <span class="price-label label-sm">ALLOTMENT PRICE</span>
+        <span class="current-price body-lg">{{ product.price | currency:'INR' }}</span>
+      </div>
+      
+      <button class="btn btn-primary btn-sm" 
+              (click)="addToCart($event)" 
+              [disabled]="!product.inStock"
+              [attr.aria-label]="product.inStock ? 'Add to bag' : 'Out of stock'"
+              [@popAnimation]="cartAnimState()">
+        <span *ngIf="product.inStock">ADD TO BAG</span>
+        <span *ngIf="!product.inStock">N/A</span>
+      </button>
+    </div>
+  </div>
+</a>

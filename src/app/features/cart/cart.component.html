@@ -1,0 +1,242 @@
+<div class="cart-page bg-surface-lowest">
+  <div class="cart-page-content">
+    
+    <!-- 1. Page Title Row -->
+    <div class="title-row">
+      <div class="title-content">
+        <span class="label-sm tracking-widest text-muted">PRIVATE ALLOTMENT LEDGER <span class="text-primary mx-2">&bull;</span> SALON PRIVÉ CART</span>
+        <h1 class="heading-xl">YOUR OLFACTORY SELECTION</h1>
+        <p class="body-sm text-muted">{{ cartService.totalItems() }} Master Extraits curated for archival dispensation</p>
+      </div>
+      <div class="title-actions">
+        <a routerLink="/products" class="back-link label-md tracking-widest">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+          RETURN TO CATALOGUE
+        </a>
+        <div class="badge-secure label-sm text-muted">
+          SECURE RESERVATION: 14:58
+        </div>
+      </div>
+    </div>
+
+    @if (cartService.cartItems().length === 0) {
+      <div class="empty-state-card">
+        <div class="empty-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </div>
+        <h2 class="heading-md mb-4">Your bag is currently empty.</h2>
+        <a routerLink="/products" class="btn btn-primary">EXPLORE THE COLLECTION &rarr;</a>
+      </div>
+    } @else {
+      <!-- 2. Upgrade / Notice Banner -->
+      <div class="upgrade-banner">
+        <div class="banner-left">
+          <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+          <div>
+            <h4 class="label-md tracking-widest banner-title">COMPLIMENTARY ALLOCATION UPGRADES ACTIVATED</h4>
+            <p class="body-sm text-muted">Complimentary 2ml Extrait Discovery Vial &amp; Black Lacquer Gift Packaging included with this allocation.</p>
+          </div>
+        </div>
+        <div class="banner-right">
+          <svg class="icon-svg text-white" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <span class="label-sm tracking-widest text-white">WHITE-GLOVE TIER</span>
+        </div>
+      </div>
+
+      <div class="cart-grid">
+        <!-- 3. Cart Items List (left) -->
+        <div class="cart-items-column">
+          @for (item of cartService.cartItems(); track item.product.id) {
+            <div class="cart-item-card">
+              
+              <!-- Thumbnail -->
+              <div class="item-thumb">
+                @if (item.product.isNew) {
+                  <span class="tag-overlay">RESERVE VINTAGE</span>
+                }
+                <img [src]="item.product.imageUrl" [alt]="item.product.name">
+              </div>
+
+              <!-- Details -->
+              <div class="item-details">
+                <div>
+                  <span class="label-sm tracking-widest text-muted block" style="margin-bottom: 0.25rem;">EXTRAIT DE PARFUM &middot; 100 ML</span>
+                  <h3 class="heading-md item-title">OBSYRA {{ item.product.name }}</h3>
+                  <p class="body-sm text-muted" style="margin-bottom: 1rem;">{{ item.product.description }}</p>
+                  
+                  <div class="item-tags">
+                    <span class="tag-pill">✎ ENGRAVED: J.C</span>
+                    <span class="body-sm text-muted" style="display:flex; gap:0.25rem; align-items:center;"><span class="text-primary">&bull;</span> Flacon Wax-Sealed</span>
+                  </div>
+                </div>
+                
+                <!-- Bottom row actions -->
+                <div class="item-actions">
+                  <div class="qty-stepper">
+                    <button class="qty-btn" (click)="decrement(item.product.id, item.quantity)">-</button>
+                    <span class="qty-val font-body text-white">{{ item.quantity }}</span>
+                    <button class="qty-btn" (click)="increment(item.product.id, item.quantity)">+</button>
+                  </div>
+
+                  <button class="action-btn label-sm">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> 
+                    WISHLIST
+                  </button>
+                  <button class="action-btn remove-btn label-sm" style="margin-left: auto;" (click)="remove(item.product.id)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    REMOVE
+                  </button>
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="item-price-col">
+                <span class="heading-sm text-primary">{{ (item.product.price * item.quantity) | currency:'INR' }}</span>
+                @if (item.product.isNew) {
+                  <span class="body-sm text-muted price-strike">{{ (item.product.price * item.quantity * 1.25) | currency:'INR' }}</span>
+                  <span class="label-sm text-outline tracking-widest savings-tag">MATURED 36 MO.</span>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Free Gift Row -->
+          <div class="free-gift-card">
+            <div class="gift-left">
+              <div class="gift-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+              </div>
+              <div>
+                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom: 0.25rem;">
+                  <h4 class="heading-sm text-white">Signature Obsidian Coffret</h4>
+                  <span class="gift-pill">FREE GIFT</span>
+                </div>
+                <p class="body-sm text-muted">A handcrafted presentation box for your allocation.</p>
+              </div>
+            </div>
+            <div class="gift-right">
+              <span class="label-md tracking-widest text-primary">INCLUDED</span>
+              <div class="toggle-switch">
+                <div class="toggle-thumb"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust Cards -->
+          <div class="trust-cards-row">
+            <div class="trust-card">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"></path><path d="M5 2h14"></path><path d="M5 22h14"></path><path d="M5 2l7 10-7 10"></path><path d="M19 2l-7 10 7 10"></path></svg>
+              <h5 class="label-md tracking-widest text-white" style="margin-bottom:0.5rem;">OLFACTORY LONGEVITY GUARANTEED</h5>
+              <p class="body-sm text-muted">Each formulation carries a minimum 38% concentration guarantee.</p>
+            </div>
+            <div class="trust-card">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+              <h5 class="label-md tracking-widest text-white" style="margin-bottom:0.5rem;">NUMBERED HARVEST CERTIFICATE</h5>
+              <p class="body-sm text-muted">Every flacon is individually registered in the Grasse master register.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4. Order Summary Sidebar (right) -->
+        <div class="order-summary-column">
+          <div class="summary-card">
+            
+            <div class="summary-header">
+              <div class="summary-header-left">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <h3 class="label-lg tracking-widest text-white uppercase">ORDER ALLOCATION</h3>
+              </div>
+              <span class="summary-badge label-sm text-[10px] tracking-widest text-muted">ALLOTMENT #4409</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="body-sm text-muted">Flacon Subtotal ({{ cartService.totalItems() }} items)</span>
+              <span class="body-sm text-on-surface">{{ cartService.subtotal() | currency:'INR' }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="body-sm text-muted summary-label-with-icon">
+                Atelier Chiseled Monogram 
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              </span>
+              <span class="label-sm tracking-widest text-primary text-[10px]">COMPLIMENTARY</span>
+            </div>
+            <div class="summary-row">
+              <span class="body-sm text-muted">2ml Discovery Extrait 🎁</span>
+              <span class="label-sm tracking-widest text-primary text-[10px]">INCLUDED</span>
+            </div>
+            <div class="summary-row">
+              <span class="body-sm text-muted">White-Glove Armored Transit</span>
+              <span class="label-sm tracking-widest text-on-surface text-[10px]">FREE (CLIMATE STABILIZED)</span>
+            </div>
+            <div class="summary-row">
+              <span class="body-sm text-muted">Estimated Tariffs &amp; Taxes</span>
+              <span class="label-sm tracking-widest text-on-surface text-[10px]">INCLUDED IN PRICE</span>
+            </div>
+
+            <hr class="divider">
+
+            <div class="grand-total-row">
+              <div>
+                <h4 class="label-lg tracking-widest text-white" style="margin-bottom:0.25rem;">GRAND TOTAL</h4>
+                <p class="body-sm text-muted" style="font-size:11px; margin-bottom:0.5rem;">Inclusive of all sovereign luxury levies</p>
+                <span class="label-sm tracking-widest text-primary" style="font-size:9px;">SALON PRIVILEGE / ALLOTMENT PASS</span>
+              </div>
+              <span class="heading-lg text-primary">{{ cartService.subtotal() | currency:'INR' }}</span>
+            </div>
+
+            <div class="promo-row">
+              <input type="text" class="promo-input" placeholder="ENTER PRIVATE CODE">
+              <button class="promo-btn label-sm tracking-widest">APPLY</button>
+            </div>
+
+            <a routerLink="/checkout" class="btn btn-primary btn-block tracking-widest" style="width: 100%; text-align: center;">PROCEED TO CHECKOUT &rarr;</a>
+
+            <div class="summary-bullets" style="margin-top:1.5rem;">
+              <div class="bullet-item body-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                100% Insured Climate Transit
+              </div>
+              <div class="bullet-item body-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"></path><path d="M12 12v10"></path></svg>
+                Direct from Grasse &amp; Paris Ateliers
+              </div>
+              <div class="bullet-item body-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Encrypted Sovereign Checkout
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="concierge-row">
+            <span class="body-sm text-muted">Need Salon Assistance?</span>
+            <a href="#" class="concierge-link label-sm tracking-widest">SUMMON CONCIERGE</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5. Cross-sell Section -->
+      <div class="cross-sell-section">
+        <div class="cross-sell-header">
+          <div>
+            <span class="label-sm tracking-widest text-primary block" style="margin-bottom:0.5rem;">HARMONIOUS PAIRING</span>
+            <h2 class="heading-lg text-white">Complete Your Olfactory Chamber</h2>
+          </div>
+          <p class="body-md text-muted cross-sell-desc">Master noses recommend layering Wild Fire cedar notes with smoky amber extracts for extended sillage.</p>
+        </div>
+
+        <div class="cross-sell-grid">
+          @for (prod of crossSellProducts(); track prod.id) {
+            <app-product-card [product]="prod"></app-product-card>
+          }
+        </div>
+      </div>
+
+    }
+  </div>
+</div>
+
+<!-- 6. Bottom Feature Strip -->
+<app-feature-strip></app-feature-strip>

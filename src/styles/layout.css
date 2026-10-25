@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+
+.section {
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--margin-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--margin-desktop);
+  }
+  .section {
+    padding-top: calc(var(--spacing-xl) * 2);
+    padding-bottom: calc(var(--spacing-xl) * 2);
+  }
+}

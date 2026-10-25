@@ -1,0 +1,62 @@
+/* src/styles.css */
+@import './styles/variables.css';
+@import './styles/typography.css';
+@import './styles/buttons.css';
+@import './styles/cards.css';
+@import './styles/layout.css';
+
+/* Angular Specific Fixes for App Shell */
+html, body { 
+  height: 100%; 
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* --- Micro-Animations & Scroll Reveal --- */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(16px);
+  /* The base transition */
+  transition: opacity 600ms cubic-bezier(0.25, 1, 0.5, 1), transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+  /* Default stagger delay if stagger index is set */
+  transition-delay: calc(var(--stagger-index, 0) * 80ms);
+  will-change: opacity, transform;
+}
+
+.reveal-hidden.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced Motion Guard */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .reveal-hidden {
+    transform: none !important;
+    transition: opacity 300ms ease !important; /* Only simple opacity fade */
+    transition-delay: 0ms !important; /* Remove staggers for reduced motion */
+  }
+}
+
+/* Global focus-visible rings for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  transition: outline 100ms ease;
+}
